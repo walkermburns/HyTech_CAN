@@ -6,7 +6,6 @@
 #endif
 
 #pragma pack(push,1)
-// this is a new test comment
 // @Parseclass @Prefix(IC_{get_ic_id()}) @Indexable(get_ic_id(8))
 class BMS_detailed_temperatures {
 public:

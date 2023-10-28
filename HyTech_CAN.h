@@ -38,6 +38,7 @@
 #include "SAB_readings_front.h"
 #include "SAB_readings_rear.h"
 #include "SAB_readings_gps.h"
+#include "SAB_lap_times.h"
 #include "GPS_high_precision.h"
 #include "GPS_lat_long.h"
 #include "GPS_other.h"

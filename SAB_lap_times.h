@@ -25,10 +25,10 @@ class SAB_lap_times{
 public:
 
     // default constructor 
-  Template() = default;
+  SAB_lap_times() = default;
 
     // constructor that initializes the class with a CAN packet
-  Template(uint8_t buf[]) { load(buf); }
+  SAB_lap_times(uint8_t buf[]) { load(buf); }
 
     // load() takes in a buffer, and copies the buffer to the class's member
     // data. (This is usually used with the FlexCAN or STM32CAN CAN_message_t.buf)

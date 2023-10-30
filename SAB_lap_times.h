@@ -44,12 +44,14 @@ public:
     inline uint8_t get_state()      const { return message & 0xF;}
 
     // get time 1 and 2 type at second/third 4 bits of message
-    inline uint8_t get_time_1_type()    const{ return message & 0x0F;}
-    inline uint8_t get_time_2_type()    const{ return message & 0x00F;}
+    inline uint8_t get_time_1_type()    const{ return (message >> 0x4) & 0xF;}
+    inline uint8_t get_time_2_type()    const{ return (message >> 0x8) & 0xF;}
 
     // get time 1 and 2 at last and second to last 6 bytes of message
     inline uint32_t get_time_1()        const{ return (message >> 0x10) & 0xFFFFFF;}
-    inline uint32_t get_time_2()        const{ return message >> 0x20;}
+    inline uint32_t get_time_2()        const{ return message >> 0x28;}
+
+    inline uint64_t get_message()       const{ return message;}
 
 
     // setters
@@ -62,13 +64,13 @@ public:
     // set time 1/2 type at second/ third 4 bits of message
     // time type will be used to designate the type of the times in 
     // the last 6 bytes of the message (best lap, last lap, total time)
-    inline void set_time_1_type(uint8_t type) { message = (message & 0xFFFFFFFFFFFFFF0F) | ((type & 0xF) << 0x4);}
-    inline void set_time_2_type(uint8_t type) { message = (message & 0xFFFFFFFFFFFFF0FF) | ((type & 0xF) << 0x8);}
+    inline void set_time_1_type(uint8_t type) { message = (message & 0xFFFFFFFFFFFFFF0F) | ((uint64_t)(type & 0xF) << 0x4);}
+    inline void set_time_2_type(uint8_t type) { message = (message & 0xFFFFFFFFFFFFF0FF) | ((uint64_t)(type & 0xF) << 0x8);}
 
     // set times at the last and second to last 6 bytes of message
     // times are in milliseconds and is designated by the time type
-    inline void set_time_1(uint32_t time) {message = (message & 0xFFFFFF000000FFFF) | ((time & 0xFFFFFF) << 0x10);}
-    inline void set_time_2(uint32_t time) {message = (message & 0x000000FFFFFFFFFF) | ((time & 0xFFFFFF) << 0x28);}
+    inline void set_time_1(uint32_t time) {message = (message & 0xFFFFFF000000FFFF) | ((uint64_t)(time & 0xFFFFFF) << 0x10);}
+    inline void set_time_2(uint32_t time) {message = (message & 0x000000FFFFFFFFFF) | ((uint64_t)(time & 0xFFFFFF) << 0x28);}
 
     // private variables that hold CAN buffer data
 private:
